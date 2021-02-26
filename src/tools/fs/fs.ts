@@ -3,7 +3,7 @@ import { config } from "../../config/googleapi";
 
 const readFile = (filepath: string = "") => {
   try {
-    let file = fs.readFileSync("./dist/config.json", "utf-8");
+    let file = fs.readFileSync(filepath, "utf-8");
     return file;
   } catch (error) {
     createConfig();
@@ -17,4 +17,4 @@ export const writeFileCSV = (filepath: string = "", str: string = "") =>
 export const readConfigJson = (filepath: string = "") => readFile(filepath);
 
 export const createConfig = (filepath: string = "") =>
-  fs.writeFileSync("./dist/config.json", JSON.stringify(config));
+  fs.writeFileSync(filepath, JSON.stringify(config));

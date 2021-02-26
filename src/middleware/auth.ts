@@ -5,7 +5,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const key = req.header("private_key_id");
   const email = req.header("client_email");
   const id = req.header("client_id");
-  const file = JSON.parse(readConfigJson("../config.json")) || {};
+  const file = JSON.parse(readConfigJson("./dist/config.json")) || {};
 
   if (
     key === file.private_key_id &&

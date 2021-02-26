@@ -4,6 +4,8 @@ import { writeFileCSV } from "../../tools/fs/fs";
 import { CrudController } from "../CrudController";
 import { documentCreation } from "../../tools/documentCreation";
 import { dateValidation } from "../../tools/validation/dateValidation";
+import { ICombined } from "../../config/types";
+import { GoogleApis } from "googleapis";
 
 export class ReportController extends CrudController {
   /**
@@ -35,13 +37,6 @@ export class ReportController extends CrudController {
         throw { msg: "body is not valid" };
       }
 
-      console.log(
-        dateValidation.isInvalidDate(startDate),
-        dateValidation.isInvalidDate(endDate),
-        dateValidation.isInvalidRange(startDate, endDate),
-        dateValidation.isBeforeReportApiStart(startDate)
-      );
-
       if (
         dateValidation.isInvalidDate(startDate) ||
         dateValidation.isInvalidDate(endDate) ||
@@ -51,10 +46,10 @@ export class ReportController extends CrudController {
         throw { msg: "wrong date" };
       }
 
-      let combined: any = {};
+      let combined: ICombined = {};
       let CSVString = "";
 
-      const promiseArr = viewIDs.map(async (viewID: any, index: number) => {
+      const promiseArr = viewIDs.map(async (viewID: string, index: number) => {
         try {
           const data = await analyticsreporting.reports.batchGet({
             requestBody: {
