@@ -12,3 +12,13 @@ export const signIntoGoogle = () => {
 
   return analyticsreporting;
 };
+
+export const getAllSites = () => {
+  let analytics = google.analytics("v3");
+  let data = analytics.management.profiles.list({
+    accountId: "137034616",
+    webPropertyId: "~all",
+  });
+
+  return data;
+};
