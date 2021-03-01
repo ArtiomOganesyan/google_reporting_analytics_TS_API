@@ -15,7 +15,8 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     next();
   } else {
     res.json({
-      msg: "error in passed config",
+      msg:
+        "error in passed config, or config does not exist. Please, try again to verify.",
     });
   }
 };

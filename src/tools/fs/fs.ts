@@ -6,7 +6,7 @@ const readFile = (filepath: string = "") => {
     let file = fs.readFileSync(filepath, "utf-8");
     return file;
   } catch (error) {
-    createConfig();
+    createConfig(filepath);
     return "{}";
   }
 };

@@ -2,7 +2,6 @@ import { ICombined, IResponseData } from "../config/types";
 
 export const documentCreation = {
   responseCombining: (arr: IResponseData[]): ICombined => {
-    console.log(JSON.stringify(arr[0]));
     let obj: ICombined = {};
     arr.forEach((el: { data: { rows: any[] } }) => {
       if (!el.data.rows) {

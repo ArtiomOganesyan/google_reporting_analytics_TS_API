@@ -6,6 +6,7 @@ import { documentCreation } from "../../tools/documentCreation";
 import { dateValidation } from "../../tools/validation/dateValidation";
 import { ICombined } from "../../config/types";
 import { GoogleApis } from "googleapis";
+import { errorCreation } from "../../tools/errorCreation";
 
 export class ReportController extends CrudController {
   /**
@@ -28,13 +29,13 @@ export class ReportController extends CrudController {
     try {
       const analyticsreporting = signIntoGoogle();
       if (!req.body.date_ranges || !req.body.view_ids) {
-        throw { msg: "body is not valid" };
+        throw "request body is not valid";
       }
       const { startDate, endDate } = req.body.date_ranges[0];
       const viewIDs = req.body.view_ids;
 
       if (!startDate || !endDate || !viewIDs.length) {
-        throw { msg: "body is not valid" };
+        throw "request body is not valid";
       }
 
       if (
@@ -43,7 +44,7 @@ export class ReportController extends CrudController {
         dateValidation.isInvalidRange(startDate, endDate) ||
         dateValidation.isBeforeReportApiStart(startDate)
       ) {
-        throw { msg: "wrong date" };
+        throw "date is not valid";
       }
 
       let combined: ICombined = {};
@@ -130,9 +131,16 @@ export class ReportController extends CrudController {
         })
         .finally(() => {
           res.sendFile(__dirname + "/doc.csv");
+        })
+        .catch((err) => {
+          console.log("==================================================");
+          res.status(err.error.code).json({ error: err.error.errors });
         });
     } catch (error) {
-      res.json({ error });
+      console.log(error);
+      console.log(errorCreation([error]));
+
+      res.json(errorCreation([error]));
     }
   }
 

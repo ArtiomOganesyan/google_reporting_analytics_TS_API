@@ -1,0 +1,19 @@
+error in google api request 
+
+{
+    "error": [
+        {
+            "message": "Unknown dimension(s): ga:userAgeBracketdd\nFor details see https://developers.google.com/analytics/devguides/reporting/core/dimsmets.",
+            "domain": "global",
+            "reason": "badRequest"
+        }
+    ]
+}
+
+{
+    "error": [
+        {
+            "message": "request body is not valid"
+        }
+    ]
+}
