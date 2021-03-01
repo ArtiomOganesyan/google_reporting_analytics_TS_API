@@ -133,13 +133,9 @@ export class ReportController extends CrudController {
           res.sendFile(__dirname + "/doc.csv");
         })
         .catch((err) => {
-          console.log("==================================================");
           res.status(err.error.code).json({ error: err.error.errors });
         });
     } catch (error) {
-      console.log(error);
-      console.log(errorCreation([error]));
-
       res.json(errorCreation([error]));
     }
   }
